@@ -3,20 +3,16 @@ from flask import *
 app = Flask(__name__)
 
 @app.route('/')
-def hello_world():
-	return "Hello World!"
+def index(rule=None):
+	return render_template('index.html',rule=rule)
 
-@app.route('/poop')
-def poop():
-	return "Poop page!"
-
-@app.route('/template/')
-@app.route('/template/<name>')
-def template(name=None):
-	return render_template('template.html',name=name)
-
-with app.test_request_context():
-	url_for('static', filename='style.css')
+@app.route('/make-rule', methods=['POST'])
+def make_rule():
+	if request.method == 'POST':
+		string = "You selected %s" % request.form['acceptdeny']
+		return render_template('index.html',rule=string)
+	else:
+		return "You did something wrong"
 
 if __name__ == '__main__':
-	app.run(host='0.0.0.0')
+	app.run(host='0.0.0.0', debug=True)

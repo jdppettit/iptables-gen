@@ -1,0 +1,29 @@
+<!doctype html>
+<title>iptables generator</title>
+<link rel=stylesheet type=text/css href="{{ url_for('static',filename='style.css') }}">
+<h3>iptables generator</h3>
+<h4>for the lazy, for the uninformed</h4>
+<form action="{{ url_for('make_rule') }}" method="post">
+	<table>
+		<tr>
+			<td>
+				Options<br/>
+				<input type="radio" name="acceptdeny" value="accept">Accept<br/>
+				<input type="radio" name="acceptdeny" value="deny">Deny</br>
+			</td>
+			<td>
+				{% if rule %}
+				Rule<br/>
+				{{ rule }}
+				{% else %}
+				Enter submit to make a rule
+				{% endif %}		
+			</td>
+			<td>
+
+			</td>
+		</tr>
+	</table>
+	<input type="submit" value="Submit">
+</form>
+
