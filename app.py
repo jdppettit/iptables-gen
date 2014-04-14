@@ -63,14 +63,14 @@ def make_rule():
 
 			try:
 				if request.form['dport'] == "dport":
-					if request.form.has_key['dporttext']:
+					if request.form['dporttext']:
 						ruleString += "--dport %s " % str(request.form['dporttext'])
 			except Exception, e:
 				print e
 
 			try:
 				if request.form['sport'] == "sport":
-					if request.form.has_key['sporttext']:
+					if request.form['sporttext']:
 						ruleString += "--sport %s " % str(request.form['sporttext'])	
 			except Exception, e:
 				print e

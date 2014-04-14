@@ -1,38 +1,48 @@
 <!doctype html>
 <title>iptables generator</title>
 <link rel=stylesheet type=text/css href="{{ url_for('static',filename='style.css') }}">
-<h3>iptables generator</h3>
-<h4>for the lazy, for the uninformed</h4>
+<div align="center">
+	<h2>iptables generator</h2>
+</div>
 <form action="{{ url_for('make_rule') }}" method="post">
-<table>
+<table class="maintable">
 	<tr>
-    	<td>1. Select Accept or Deny:<br/>
-        	<input type="radio" name="acceptdeny" value="accept" />Accept<br/>
-            <input type="radio" name="acceptdeny" value="deny" />Deny<br/><br/>
-            2. Select modifiers:<br/>
-            <input type="checkbox" name="dport" value="dport"/>Destination Port <input type="text" name="dporttext" /><br/>
-            <input type="checkbox" name="sport" value="sport"/>Source Port <input type="text" name="sporttext" /><br/>
-            <input type="checkbox" name="protoudp" value="udp"/>UDP <input type="checkbox" name="prototcp" value="tcp"/>TCP<br/><br/>
-            <input type="checkbox" name="sourceip" value="sourceip"/>Source IP <input type="text" name="sourceiptext"/><br/>
-            <input type="checkbox" name="destip" value="destip"/>Destination IP <input type="text" name="destiptext"/><br/>
-            <br/><br/>
-            3. Select state:<br/>
-            <input type="checkbox" name="new" value="new" /> New
-            <input type="checkbox" name="established" value="established" /> Established
-            <input type="checkbox" name="related" value="related" /> Related<br/><br/>
-            4. Select where to insert:<br/>
-            <input type="radio" name="appendinsert" value="append" />Append<br/>
-            <input type="radio" name="appendinsert" value="insert" />Insert <input type="text" name="insertpos" /><br/><br/>
-	    5. What chain:<br/>
-	    <input type="radio" name="inputoutputforward" value="input"/>Input<br/>
-	    <input type="radio" name="inputoutputforward" value="output"/>Output<br/>
-            <input type="radio" name="inputoutputforward" value="forward"/>Forward<br/>
-            </td>
-        <td>Rule:<br/>
-        	<textarea rows="20" cols="50">{% if rule %}{{ rule }}{% endif %}</textarea></td>
-        <td><input type="submit" value="Make Rule" /></td>
+    	<td class="maintd">1. Select the chain:<br/>
+	<input type="radio" name="inputoutputforward" value="input"/>Input<br/>
+        <input type="radio" name="inputoutputforward" value="output"/>Output<br/>
+        <input type="radio" name="inputoutputforward" value="forward"/>Forward<br/><br/>
+	2. How should the rule be added:<br/>
+	<input type="radio" name="appendinsert" value="append" />Append<br/>
+        <input type="radio" name="appendinsert" value="insert" />Insert <input type="text" name="insertpos" placeholder="Line Number" /><br/><br/>
+	3. Add modifiers (rules):<br/>
+	<table>
+	        <tr><td><input type="radio" name="acceptdeny" value="accept" />Accept</td>
+		<td><input type="radio" name="acceptdeny" value="deny" />Deny</td></tr>
+	
+		<tr><td><input type="checkbox" name="dport" value="dport"/>Destination Port </td><td><input type="text" name="dporttext" placeholder="Destination Port"/></td></tr>
+		<tr><td><input type="checkbox" name="sport" value="sport"/>Source Port </td><td><input type="text" name="sporttext" placeholder="Source Port"/></td></tr>
+	
+		<tr><td><input type="checkbox" name="protoudp" value="udp"/>UDP </td><td><input type="checkbox" name="prototcp" value="tcp"/>TCP</td></tr>
+	
+		<tr><td><input type="checkbox" name="sourceip" value="sourceip"/>Source IP </td><td><input type="text" name="sourceiptext" placeholder="Source IP/Mask (192.168.1.0/24)"/></td></tr>
+		<tr><td><input type="checkbox" name="destip" value="destip"/>Destination IP </td><td><input type="text" name="destiptext" placeholder="Destination IP/Mask (192.168.1.0/24)"/></td></tr>
+	</table>
+		<input type="checkbox" name="new" value="new" /> New
+		<input type="checkbox" name="established" value="established" /> Established
+		<input type="checkbox" name="related" value="related" /> Related<br/><br/>
+	<div align="center"><input type="submit" value="Make Rule" /><br/><br/>
+	<div class="red">*</div> at least one option from each step must be selected.</div>
+	</td>
+        <td class="maintd">
+		<textarea rows="20" cols="50">{% if rule %}{{ rule }}{% else %}Add stuff to the right to make a rule{% endif %}</textarea>
+	</td>
     </tr>
 </table>
+<br/><br/>
+        <div align="center">
+                <a href="https://github.com/silverp1/iptables-gen">View Source</a>
+        </div>
+
 </form>
 </form>
 
