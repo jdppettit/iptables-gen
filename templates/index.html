@@ -4,26 +4,35 @@
 <h3>iptables generator</h3>
 <h4>for the lazy, for the uninformed</h4>
 <form action="{{ url_for('make_rule') }}" method="post">
-	<table>
-		<tr>
-			<td>
-				Options<br/>
-				<input type="radio" name="acceptdeny" value="accept">Accept<br/>
-				<input type="radio" name="acceptdeny" value="deny">Deny</br>
-			</td>
-			<td>
-				{% if rule %}
-				Rule<br/>
-				{{ rule }}
-				{% else %}
-				Enter submit to make a rule
-				{% endif %}		
-			</td>
-			<td>
-
-			</td>
-		</tr>
-	</table>
-	<input type="submit" value="Submit">
+<table>
+	<tr>
+    	<td>1. Select Accept or Deny:<br/>
+        	<input type="radio" name="acceptdeny" value="accept" />Accept<br/>
+            <input type="radio" name="acceptdeny" value="deny" />Deny<br/><br/>
+            2. Select modifiers:<br/>
+            <input type="checkbox" name="dport" value="dport"/>Destination Port <input type="text" name="dporttext" /><br/>
+            <input type="checkbox" name="sport" value="sport"/>Source Port <input type="text" name="sporttext" /><br/>
+            <input type="checkbox" name="protoudp" value="udp"/>UDP <input type="checkbox" name="prototcp" value="tcp"/>TCP<br/><br/>
+            <input type="checkbox" name="sourceip" value="sourceip"/>Source IP <input type="text" name="sourceiptext"/><br/>
+            <input type="checkbox" name="destip" value="destip"/>Destination IP <input type="text" name="destiptext"/><br/>
+            <br/><br/>
+            3. Select state:<br/>
+            <input type="checkbox" name="new" value="new" /> New
+            <input type="checkbox" name="established" value="established" /> Established
+            <input type="checkbox" name="related" value="related" /> Related<br/><br/>
+            4. Select where to insert:<br/>
+            <input type="radio" name="appendinsert" value="append" />Append<br/>
+            <input type="radio" name="appendinsert" value="insert" />Insert <input type="text" name="insertpos" /><br/><br/>
+	    5. What chain:<br/>
+	    <input type="radio" name="inputoutputforward" value="input"/>Input<br/>
+	    <input type="radio" name="inputoutputforward" value="output"/>Output<br/>
+            <input type="radio" name="inputoutputforward" value="forward"/>Forward<br/>
+            </td>
+        <td>Rule:<br/>
+        	<textarea rows="20" cols="50">{% if rule %}{{ rule }}{% endif %}</textarea></td>
+        <td><input type="submit" value="Make Rule" /></td>
+    </tr>
+</table>
+</form>
 </form>
 
