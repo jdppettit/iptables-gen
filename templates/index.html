@@ -17,7 +17,7 @@
 	3. Add modifiers (rules):<br/>
 	<table>
 	        <tr><td><input type="radio" name="acceptdeny" value="accept" />Accept</td>
-		<td><input type="radio" name="acceptdeny" value="deny" />Deny</td></tr>
+		<td><input type="radio" name="acceptdeny" value="deny" />Deny <div class="red">*</div></td></tr>
 	
 		<tr><td><input type="checkbox" name="dport" value="dport"/>Destination Port </td><td><input type="text" name="dporttext" placeholder="Destination Port"/></td></tr>
 		<tr><td><input type="checkbox" name="sport" value="sport"/>Source Port </td><td><input type="text" name="sporttext" placeholder="Source Port"/></td></tr>
@@ -31,7 +31,7 @@
 		<input type="checkbox" name="established" value="established" /> Established
 		<input type="checkbox" name="related" value="related" /> Related<br/><br/>
 	<div align="center"><input type="submit" value="Make Rule" /><br/><br/>
-	<div class="red">*</div> at least one option from each step must be selected.</div>
+	<div class="red">*</div> at least one option from each step must be selected.<br/>Accept or Deny must also be selected under the modifiers block.</div>
 	</td>
         <td class="maintd">
 		<textarea rows="20" cols="50">{% if rule %}{{ rule }}{% else %}Add stuff to the right to make a rule{% endif %}</textarea>

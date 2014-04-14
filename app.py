@@ -9,6 +9,7 @@ def index(rule=None):
 @app.route('/make-rule', methods=['POST'])
 def make_rule():
 	ruleString = ""
+	errorFlag = 0
 	try:
 		if request.method == 'POST':
 			
@@ -19,6 +20,7 @@ def make_rule():
 					ruleString += "iptables -I "
 			except Exception ,e:
 				print e
+				errorFlag = 1
 
 			try:
 				if request.form['inputoutputforward'] == 'input':
@@ -29,11 +31,15 @@ def make_rule():
 					ruleString += "FORWARD "
 			except Exception, e:
 				print e
+				errorFlag = 1
 
 			try:
 				if request.form['appendinsert'] == "insert":
 					ruleString += str(request.form['insertpos'])
 					ruleString += " "
+					if not request.form['insertpos']:
+						errorFlag = 1
+						print "Error flag thrown"
 			except Exception, e:
 				print e
 
@@ -51,13 +57,17 @@ def make_rule():
 				if request.form['sourceip']:
 					if request.form['sourceiptext']:
 						ruleString += "-s %s " % str(request.form['sourceiptext'])
+					if not request.form['sourceiptext']:
+						errorFlag = 1
 			except Exception, e:
 				print e
 			
 			try:			
 				if request.form['destip'] == "destip":
-					if request.form.has_key['destiptext']:
+					if request.form['destiptext']:
 						ruleString += "-o %s " % str(request.form['destiptext'])
+					if not request.form['destiptext']:
+						errorFlag = 1
 			except Exception, e:
 				print e
 
@@ -65,6 +75,8 @@ def make_rule():
 				if request.form['dport'] == "dport":
 					if request.form['dporttext']:
 						ruleString += "--dport %s " % str(request.form['dporttext'])
+					if not request.form['dporttext']:
+						errorFlag = 1
 			except Exception, e:
 				print e
 
@@ -72,6 +84,8 @@ def make_rule():
 				if request.form['sport'] == "sport":
 					if request.form['sporttext']:
 						ruleString += "--sport %s " % str(request.form['sporttext'])	
+					if not request.form['sporttext']:
+						errorFlag = 1
 			except Exception, e:
 				print e
 
@@ -116,12 +130,20 @@ def make_rule():
 				ruleString += "-j ACCEPT"
 			elif request.form['acceptdeny'] == "deny":
 				ruleString += "-j DROP"
-
+			
+			if errorFlag != 0:
+				print "The IF statement evaluated as TRUE"
+				ruleString += "*** THIS RULE IS NOT VALID *** Please make sure you entered information in the text field next to each option you checked!"
+			
 			return render_template('index.html',rule=ruleString)
 	
 	except Exception, e:
 		print e		
 		print request.form
+		
+		if errorFlag == 1:
+	                ruleString += "*** THIS RULE IS NOT VALID *** Please make sure you entered information in the text field next to each option you checked!"
+
 		return render_template('index.html',rule=ruleString)
 
 if __name__ == '__main__':
