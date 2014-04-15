@@ -36,6 +36,7 @@ textarea, input {
 	color: white;
 	text-align:center;
 	padding-top:10px;
+	vertical-align:bottom;
 }	
 
 td.maintd {
