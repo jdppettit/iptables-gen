@@ -4,6 +4,7 @@
 <div align="center">
 	<h2>iptables generator</h2>
 </div>
+<div class="page-wrap">
 <form action="{{ url_for('make_rule') }}" method="post">
 <table class="maintable">
 	<tr>
@@ -39,10 +40,20 @@
     </tr>
 </table>
 <br/><br/>
-        <div align="center">
-                <a href="https://github.com/silverp1/iptables-gen">View Source</a>
-        </div>
-
 </form>
 </form>
-
+</div>
+<footer class="site-footer">
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- iptables.pw -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-0155569923111859"
+     data-ad-slot="6175277237"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<br/>
+<a href="https://github.com/silverp1/iptables-gen"><img src="{{ url_for('static',filename='images/github.png') }}"/></a><br/>
+written by joe pettit
+</footer>
